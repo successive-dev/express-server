@@ -16,4 +16,28 @@
 <h4>Robust and extensible architecture</h4>
     <p>Architecturally, Visual Studio Code combines the best of web, native, and language-specific technologies. Using Electron, VS Code combines web technologies such as JavaScript and Node.js with the speed and flexibility of native apps. VS Code uses a newer, faster version of the same industrial-strength HTML-based editor that has powered the “Monaco” cloud editor, Internet Explorer's F12 Tools, and other projects. Additionally, VS Code uses a tools service architecture that enables it to integrate with many of the same technologies that power Visual Studio, including Roslyn for .NET, TypeScript, the Visual Studio debugging engine, and more.</p>
 
+<h2>Pluggins</h2>
+<h3>Open-In-Browser</h3>
+<p>VSCode doesn't offer any built-in interface for opening files directly in the browser. This extension adds a Open With Default Browser item to the contextual menu, as well as command palette options for opening in a client of your choice (Firefox, Chrome, IE).</p>
+<h3>Quokka</h3>
+<p>Quokka is a debugging tool that gives live feedback on the code you are writing. It shows you previews of the results of functions and calculated values for variables. The extension is easy to configure and works out of the box with JSX or TypeScript projects</p>
+<h3>Faker</h3>
+<p>Quickly insert placeholder data using the popular Faker JavaScript library. You can generate random names, addresses, images, phone numbers, or just paragraphs of classic Lorem Ipsum. Each category has various subcategories so you can make the data fit your needs.</p>
+<h3>CSS Peek</h3>
+<p>WIth this extension you can trace the definitions of CSS classes and ids in your stylesheets. When you right click on a selector in your HTML files, choosing the options Go to Definition and Peek definition will send you to the CSS code in which you've styled them.</p>
+<h3>HTML Boilerplate</h3>
+<p>The HTML boilerplate extension will save you from having to manually write the head and body tags of a new HTML document. Just type html in an empty file, hit the Tab key, and a clean document structure will be generated.</p>
+<h3>Prettier</h3>
+<p>Prettier is the most popular code formatter in web dev right now. It allows your team's code look the same, no matter who wrote it. This extension makes it possible to automatically apply Prettier and quickly format whole JS and CSS documents. If you also want to throw ESLint in the mix, there is Prettier - Eslint.</p>
+<h3>Color Info</h3>
+<p>Small plugin that gives you various information about the colors you've used in your CSS. By hovering on a color you can see a larger preview of how it looks, as well as info about its translation to all formats (hex, rgb, hsl, and cmyk).
+</p>
+<h3>SVG Viewer</h3>
+<p>
+This extension adds a number of utilities for working with SVGs in Visual Studio Code. It makes it possible to render SVG files and see how they look like without having to leave the editor. There are also options for converting to PNG and generating data URI schemes.
+</p>
+<h3>TODO Highlight</h3>
+<p>This tool marks all TODO comments in your code, making it easier to track down any unfinished business before pushing to production. By default it looks for TODO and FIXME keywords but you can add your custom expressions as well.
+</p>
+
 
