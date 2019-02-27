@@ -1,0 +1,13 @@
+{
+  "name": "patterns",
+  "version": "1.0.0",
+  "description": "",
+  "main": "diamond.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "diamond":"nodejs diamond.js",
+    "triangle":"nodejs triangle.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
