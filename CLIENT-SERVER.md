@@ -1,2 +1,0 @@
-<h3>How a request gets served </h3>
-<p>User sends a request to some end point, example "/" or "domain.com/api/users". There is some json data associated with every request. Requests are generally are of four types GET,POST,PUT,DELETE. For end point there is a procedure defined on server, which will process the request and send back some response.</p>
