@@ -1,0 +1,29 @@
+{
+  "name": "express-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc-watch -p . --onSuccess \"npm run nodemon\"",
+    "dev": "npx babel-node extra --presets env",
+    "nodemon": "nodemon ./extra/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/successive-dev/express-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/successive-dev/express-server/issues"
+  },
+  "homepage": "https://github.com/successive-dev/express-server#readme",
+  "dependencies": {
+    "nodemon": "^1.18.10"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  }
+}
