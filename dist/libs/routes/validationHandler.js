@@ -29,6 +29,9 @@ function validationHandler(config) {
             if (!(typeof (config[prop]['default']) == 'undefined')) {
                 req[source][prop] = config[prop]['default'];
             }
+            // if(typeof(config[prop]['regex']!='undefined') && config[prop]['regex'].length!=0){
+            //     req[source]['regex'] = config[prop]['regex'].test(input);
+            // }
         }
         next();
     };
