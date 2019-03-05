@@ -4,15 +4,15 @@ function print_triangle(n: number) {
 
 
     //forward pattern
-    for (var row = 1; row <= num_rows; row++) {
-        var line = "";
+    for (let row = 1; row <= num_rows; row++) {
+        let line = "";
 
         // appending spaces
-        for (var space = num_rows; space > row; space--) {
+        for (let space = num_rows; space > row; space--) {
             line = line + " ";
         }
         //appending stars
-        for (var stars = 1; stars <= 2 * row - 1; stars++) {
+        for (let stars = 1; stars <= 2 * row - 1; stars++) {
             line = line + "*";
         }
         //print line

@@ -1,13 +1,18 @@
 import * as express from 'express';
-import Trainee from './Controller';
+import trainee from './Controller';
+import validate from './validation';
+import validationHandler from '../../../libs/routes/validationHandler';
 
-var router = express.Router();
 
+let router = express.Router();
+// console.log(validate.create);
 
-router.get('/',Trainee.get);
+router.get('/',validationHandler(validate.get), trainee.get);
 
-router.post('/',Trainee.put);
+router.post('/',validationHandler(validate.create), trainee.post);
 
-router.put('/',Trainee.post);
+router.put('/',validationHandler(validate.update), trainee.put); 
 
-router.delete('/',Trainee.delete);
+router.delete('/',validationHandler(validate.delete), trainee.delete);
+
+export default router;

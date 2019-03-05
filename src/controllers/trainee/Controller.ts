@@ -1,16 +1,21 @@
+import {NextFunction, Request, Response} from 'express';
+
 class Trainee {
-    public get(req, res) {
-        res.send("Get Req");
+    public get(req: Request, res: Response) {
+        res.send("Get pinged");
+        console.log(req.query);
     }
-    public post(req, res) {
-        res.send("Post Req");
+    public post(req: Request, res: Response) {
+        res.send("Post pinged");
     }
-    public put(req, res) {
-        res.send("Put Req");
+    public put(req: Request, res: Response) {
+        res.send("Put pinged");
     }
-    public delete(req, res) {
-        res.send("Delete Req");
+    public delete(req: Request, res: Response) {
+        res.send("Delete pinged");
     }
 }
 
-export default new Trainee();
+const trainee = new Trainee();
+
+export default trainee;
