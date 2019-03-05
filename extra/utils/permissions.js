@@ -1,14 +1,7 @@
-var permissions = {
-    'getUsers': {
-    all: ['head-trainer'],
-    read : ['trainee', 'trainer'],
-    write : ['trainer'],
-    delete: [],
-    }
-}
+import {permissions} from "../constants";
 
-function hasPermission(moduleName, role, permissionType, ){
+export default function hasPermission(moduleName, role, permissionType){
     return permissions[moduleName][permissionType].includes(role);
 }
 
-console.log(hasPermission('getUsers', 'trainee', 'write'));
+
