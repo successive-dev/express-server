@@ -1,7 +1,8 @@
 import * as express from 'express';
 import { config } from './config/IConfig';
-import router from './controllers/trainee/routes';
+import trainee from './controllers/trainee/routes';
 import * as bodyParser from 'body-parser';
+import user from './controllers/user/routes';
 const app = express();
 
 export class Server {
@@ -22,10 +23,10 @@ export class Server {
     setupRoutes(){
 
         this.initBodyParser();
-        app.use('/api',router)
-
+        app.use('/api/trainee',trainee);
+        app.use('/api/user/',user);
         app.get("/", (req, res) => {
-            res.send("I am OK")
+            res.send("I am root")
         })
     }
 
@@ -36,7 +37,7 @@ export class Server {
             console.log(err);
         }
     }
-    
+
 
 }
 

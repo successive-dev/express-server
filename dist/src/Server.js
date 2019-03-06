@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const routes_1 = require("./controllers/trainee/routes");
 const bodyParser = require("body-parser");
+const routes_2 = require("./controllers/user/routes");
 const app = express();
 class Server {
     constructor(config) {
@@ -19,9 +20,10 @@ class Server {
     }
     setupRoutes() {
         this.initBodyParser();
-        app.use('/api', routes_1.default);
+        app.use('/api/trainee', routes_1.default);
+        app.use('/api/user/', routes_2.default);
         app.get("/", (req, res) => {
-            res.send("I am OK");
+            res.send("I am root");
         });
     }
     run() {
