@@ -17,3 +17,4 @@ router.put('/',validationHandler(validate.update), trainee.put);
 router.delete('/',validationHandler(validate.delete), trainee.delete);
 
 export default router;
+

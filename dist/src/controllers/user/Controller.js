@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class User {
+// import {User} from '../../../src/repositories/user/UserModel';
+class UserClass {
     get(req, res) {
-        res.send("Get pinged");
-        console.log(req.query);
+        console.log('User Get Pinged');
     }
     post(req, res) {
         res.send("Post pinged");
@@ -15,6 +15,6 @@ class User {
         res.send("Delete pinged");
     }
 }
-const user = new User();
+const user = new UserClass();
 exports.default = user;
 //# sourceMappingURL=Controller.js.map

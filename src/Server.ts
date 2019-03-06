@@ -5,7 +5,7 @@ import * as bodyParser from 'body-parser';
 import user from './controllers/user/routes';
 const app = express();
 
-export class Server {
+export default class Server {
     constructor(public config: config) {
     }
 
@@ -24,7 +24,7 @@ export class Server {
 
         this.initBodyParser();
         app.use('/api/trainee',trainee);
-        app.use('/api/user/',user);
+        app.use('/api/user',user);
         app.get("/", (req, res) => {
             res.send("I am root")
         })
@@ -37,7 +37,5 @@ export class Server {
             console.log(err);
         }
     }
-
-
 }
 

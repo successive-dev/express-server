@@ -16,3 +16,4 @@ router.put('/', user.put);
 router.delete('/', user.delete);
 
 export default router;
+

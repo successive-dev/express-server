@@ -21,7 +21,7 @@ class Server {
     setupRoutes() {
         this.initBodyParser();
         app.use('/api/trainee', routes_1.default);
-        app.use('/api/user/', routes_2.default);
+        app.use('/api/user', routes_2.default);
         app.get("/", (req, res) => {
             res.send("I am root");
         });
@@ -35,5 +35,5 @@ class Server {
         }
     }
 }
-exports.Server = Server;
+exports.default = Server;
 //# sourceMappingURL=Server.js.map
