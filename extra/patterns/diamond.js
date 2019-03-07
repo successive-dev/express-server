@@ -3,15 +3,15 @@ function print_diamond(n) {
     const half_rows = Math.ceil(num_rows / 2);
 
     //forward pattern
-    for (var row = 1; row <= half_rows; row++) {
-        var line = "";
+    for (let row = 1; row <= half_rows; row++) {
+        let line = "";
 
         // appending spaces
-        for (var space = half_rows; space > row; space--) {
+        for (let space = half_rows; space > row; space--) {
             line = line + " ";
         }
         //appending stars
-        for (var stars = 1; stars <= 2 * row - 1; stars++) {
+        for (let stars = 1; stars <= 2 * row - 1; stars++) {
             line = line + "*";
         }
         //print line
@@ -21,13 +21,13 @@ function print_diamond(n) {
     // rev pattern
 
     for (row = half_rows - 1; row >= 1; row--) {
-        var line = "";
+        let line = "";
 
         //appending spaces to line
-        for (var space = half_rows; space > row; space--) {
+        for (let space = half_rows; space > row; space--) {
             line = line + " ";
         }
-        for (var stars = 2 * row - 1; stars >= 1; stars--) {
+        for (let stars = 2 * row - 1; stars >= 1; stars--) {
             line = line + "*";
         }
         console.log(line);
