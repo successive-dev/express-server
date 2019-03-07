@@ -1,23 +1,19 @@
-// require('dotenv').config();
-// const url = process.env.MONGO_URL;
-import * as mongoose from 'mongoose';
-import seedUser from './seedData';
-import { User } from '../src/repositories/user/UserModel';
-// import IUser from '../src/repositories/user/IUserModel';
-// console.log(url);
-export default class Database{
+import * as mongoose from "mongoose";
+import { User } from "../src/repositories/user/UserModel";
+import seedUser from "./seedData";
 
-    open(url:string){
-        mongoose.connect(url, {useNewUrlParser:true})
-        .then(()=>console.log("Connected to DB..."))
-        .catch(err=>console.log(err.message));  
+export default class Database {
+
+    public open(url: string) {
+        mongoose.connect(url, {useNewUrlParser: true})
+// tslint:disable-next-line: no-console
+        .then(() => console.log("Connected to DB..."))
+// tslint:disable-next-line: no-console
+        .catch((err) => console.log(err.message));
         seedUser(User);
     }
 
-    disconnect(){
+    public disconnect() {
         mongoose.disconnect();
     }
 }
-
-
-// db.disconnect();

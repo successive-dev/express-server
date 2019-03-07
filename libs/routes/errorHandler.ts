@@ -4,7 +4,7 @@ export default function errorHandler(err, req, res, next) {
             error: "Not Found",
             message: "error",
             status: 500,
-            timestamp: new Date()
-        }
-    )
+            timestamp: new Date(),
+        },
+    );
 }

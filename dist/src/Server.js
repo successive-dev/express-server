@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
-const routes_1 = require("./controllers/trainee/routes");
 const bodyParser = require("body-parser");
-const routes_2 = require("./controllers/user/routes");
+const express = require("express");
+const Database_1 = require("../libs/Database");
+const index_1 = require("./controllers/trainee/index");
+const index_2 = require("./controllers/user/index");
 const app = express();
 class Server {
     constructor(config) {
@@ -14,23 +15,27 @@ class Server {
         this.initBodyParser();
     }
     initBodyParser() {
-        // app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: false }));
         app.use(bodyParser.json());
     }
     setupRoutes() {
-        this.initBodyParser();
-        app.use('/api/trainee', routes_1.default);
-        app.use('/api/user', routes_2.default);
+        app.use("/api/trainee", index_1.traineeRouter);
+        app.use("/api/user", index_2.userRouter);
         app.get("/", (req, res) => {
             res.send("I am root");
         });
     }
     run() {
+        const db = new Database_1.default();
+        db.open(process.env.MONGO_URL);
         try {
-            app.listen(this.config.port, () => console.log(`Example app listening on port ${this.config.port}!`));
+            app.listen(this.config.port, () => {
+                // tslint:disable-next-line: no-console
+                console.log(`Example app listening on port ${this.config.port}!`);
+            });
         }
         catch (err) {
+            // tslint:disable-next-line: no-console
             console.log(err);
         }
     }

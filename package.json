@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc-watch -p . --onSuccess \"npm run dev\"",
-    "dev": "npx babel-node --presets env ./dist/src/index.js",
-    "nodemon": "nodemon ./extra/index.js"
+    "start": "tsc-watch -p . --onSuccess \"npm run nodemon\"",
+    "nodemon": "nodemon dist/src/index.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +31,7 @@
     "tslint": "^5.13.1"
   },
   "devDependencies": {
+    "@types/dotenv": "^6.1.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "tsc-watch": "^2.1.2",

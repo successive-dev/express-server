@@ -1,6 +1,8 @@
-export default interface IUser{
-    emailid : string;
-    name : string;
+import * as mongoose from "mongoose";
+
+export default interface IUserModel extends mongoose.Document {
+    emailid: string;
+    name: string;
     password: string;
     dob: Date;
 }

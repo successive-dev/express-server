@@ -4,6 +4,9 @@
         "tslint:recommended"
     ],
     "jsRules": {},
-    "rules": {},
+    "rules": {
+        // tslint:disable-next-line: no-string-literal
+
+    },
     "rulesDirectory": []
 }

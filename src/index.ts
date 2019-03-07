@@ -1,17 +1,12 @@
-// import {config} from './config/IConfig';
-import Server from './Server';
-import Database from '../libs/Database';
+import * as dotenv from "dotenv";
+import Server from "./Server";
+dotenv.config();
 
-require('dotenv').config()
-let config = {
-    port:process.env.PORT,
-    node_env:process.env.NODE_ENV
-}
-config = Object.freeze(config);
+const conf = Object.freeze({
+    node_env: process.env.NODE_ENV,
+    port: process.env.PORT,
+});
 
-const db = new Database();
-db.open(process.env.MONGO_URL);
-
-const s = new Server(config);
+const s = new Server(conf);
 s.setupRoutes();
 s.run();

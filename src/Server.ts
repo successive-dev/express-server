@@ -1,41 +1,46 @@
-import * as express from 'express';
-import { config } from './config/IConfig';
-import trainee from './controllers/trainee/routes';
-import * as bodyParser from 'body-parser';
-import user from './controllers/user/routes';
+import * as bodyParser from "body-parser";
+import * as express from "express";
+import Database from "../libs/Database";
+import { IConfig } from "./config/IConfig";
+import { traineeRouter } from "./controllers/trainee/index";
+import { userRouter } from "./controllers/user/index";
 const app = express();
 
 export default class Server {
-    constructor(public config: config) {
+
+    constructor(public config: IConfig) {
     }
 
-    bootstarp(){
+    public bootstarp() {
         this.setupRoutes();
         this.initBodyParser();
     }
 
-    initBodyParser(){
-        // app.use(bodyParser.json());
-        app.use(bodyParser.urlencoded({ extended: false }))
-        app.use(bodyParser.json())
+    public initBodyParser() {
+        app.use(bodyParser.urlencoded({ extended: false }));
+        app.use(bodyParser.json());
     }
 
-    setupRoutes(){
-
-        this.initBodyParser();
-        app.use('/api/trainee',trainee);
-        app.use('/api/user',user);
+    public setupRoutes() {
+        app.use("/api/trainee", traineeRouter);
+        app.use("/api/user", userRouter);
         app.get("/", (req, res) => {
-            res.send("I am root")
-        })
+            res.send("I am root");
+        });
     }
 
-    run() {
+    public run() {
+        const db = new Database();
+        db.open(process.env.MONGO_URL);
+
         try {
-            app.listen(this.config.port, () => console.log(`Example app listening on port ${this.config.port}!`))
+            app.listen(this.config.port, () => {
+// tslint:disable-next-line: no-console
+                console.log(`Example app listening on port ${this.config.port}!`);
+            });
         } catch (err) {
+// tslint:disable-next-line: no-console
             console.log(err);
         }
     }
 }
-
