@@ -8,5 +8,4 @@ const conf = Object.freeze({
 });
 
 const s = new Server(conf);
-s.setupRoutes();
-s.run();
+s.bootstarp();

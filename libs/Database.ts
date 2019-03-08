@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose";
-import { User } from "../src/repositories/user/UserModel";
+// import { User } from "../src/repositories/user/UserModel";
 import seedUser from "./seedData";
 
 export default class Database {
@@ -10,7 +10,7 @@ export default class Database {
         .then(() => console.log("Connected to DB..."))
 // tslint:disable-next-line: no-console
         .catch((err) => console.log(err.message));
-        seedUser(User);
+        seedUser();
     }
 
     public disconnect() {

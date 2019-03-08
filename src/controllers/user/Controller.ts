@@ -1,19 +1,42 @@
 import {NextFunction, Request, Response} from "express";
+import userRepo from "../../repositories/user/UserRepository";
 // import {User} from '../../../src/repositories/user/UserModel';
 
 // Filter out the required data from the request and play with it here only.
 class UserClass {
-    public get(req: Request, res: Response) {
-       res.send("Get pinged");
+    public async get(req: Request, res: Response) {
+// tslint:disable-next-line: no-shadowed-variable
+        const user = await userRepo.getUser(req.body.id);
+        res.send(user);
     }
-    public post(req: Request, res: Response) {
-        res.send("Post pinged");
+    public async post(req: Request, res: Response) {
+        const { name, emailid, password } = req.body;
+        const dob = new Date();
+        // console.log({dob,
+        //     emailid,
+        //     name,
+        //     password});
+        const newUser = await userRepo.createUser({
+            dob,
+            emailid,
+            name,
+            password,
+        });
+
+        if (!newUser) {
+            throw new Error("Failed to create new User");
+        }
+        res.send(newUser);
+
     }
-    public put(req: Request, res: Response) {
-        res.send("Put pinged");
+    public async put(req: Request, res: Response) {
+        const { emailid, name, password } = req.body;
+        const updatedUser = await userRepo.updateUser(req.body.id, {emailid, name, password});
+        res.send(updatedUser);
     }
-    public delete(req: Request, res: Response) {
-        res.send("Delete pinged");
+    public async delete(req: Request, res: Response) {
+        const deletedUser = await userRepo.delUser(req.body.id);
+        res.send(deletedUser);
     }
 }
 

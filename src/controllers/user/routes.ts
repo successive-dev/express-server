@@ -6,7 +6,7 @@ import user from "./Controller";
 const router = express.Router();
 // console.log(validate.create);
 
-router.get("/", authMiddleWare("getUsers", "write"), user.get);
+router.get("/", user.get);
 
 router.post("/", user.post);
 

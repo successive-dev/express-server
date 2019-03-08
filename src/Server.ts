@@ -12,8 +12,9 @@ export default class Server {
     }
 
     public bootstarp() {
-        this.setupRoutes();
         this.initBodyParser();
+        this.setupRoutes();
+        this.run();
     }
 
     public initBodyParser() {
@@ -39,8 +40,7 @@ export default class Server {
                 console.log(`Example app listening on port ${this.config.port}!`);
             });
         } catch (err) {
-// tslint:disable-next-line: no-console
-            console.log(err);
+            throw new Error(err);
         }
     }
 }
