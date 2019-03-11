@@ -12,10 +12,6 @@ class UserClass {
     public async post(req: Request, res: Response) {
         const { name, emailid, password } = req.body;
         const dob = new Date();
-        // console.log({dob,
-        //     emailid,
-        //     name,
-        //     password});
         const newUser = await userRepo.createUser({
             dob,
             emailid,

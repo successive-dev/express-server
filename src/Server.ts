@@ -1,6 +1,7 @@
 import * as bodyParser from "body-parser";
 import * as express from "express";
 import Database from "../libs/Database";
+import seedUser from "../libs/seedData";
 import { IConfig } from "./config/IConfig";
 import { traineeRouter } from "./controllers/trainee/index";
 import { userRouter } from "./controllers/user/index";
@@ -31,12 +32,12 @@ export default class Server {
     }
 
     public run() {
-        const db = new Database();
-        db.open(process.env.MONGO_URL);
-
         try {
+            const db = new Database();
+            db.open(process.env.MONGO_URL);
+            seedUser();
             app.listen(this.config.port, () => {
-// tslint:disable-next-line: no-console
+                // tslint:disable-next-line: no-console
                 console.log(`Example app listening on port ${this.config.port}!`);
             });
         } catch (err) {

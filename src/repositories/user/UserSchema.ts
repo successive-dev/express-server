@@ -1,6 +1,7 @@
 import { Schema } from "mongoose";
 import VersionableSchema from "../versionable/VersionableSchema";
 import { User } from "./UserModel";
+
 // const UserSchema = new Schema({
 
 //     dob: {type: Date, required: true},
@@ -15,6 +16,7 @@ import { User } from "./UserModel";
 class UserSchema extends VersionableSchema {
     constructor() {
         const baseSchema = {
+            _id: { type: String },
             emailid: { type: String, required: true },
             name: { type: String, required: true },
             password: { type: String, required: true },

@@ -1,4 +1,5 @@
 import { Document, model, Model } from "mongoose";
+import { seedUser } from "../../../extraTs/constants";
 import VersionableRepository from "../versionable/VersionableRepository";
 import IUserModel from "./IUserModel";
 import { User } from "./UserModel";
@@ -30,29 +31,8 @@ class UserRepository extends VersionableRepository {
   }
 
   public async insertSeedUser() {
-    return await User.create({
-      dob: new Date(),
-      emailid: "DummyEmailId",
-      name: "DummyName",
-      password: "DummyPassword",
-
-    });
+    return await super.create(seedUser);
   }
-
-  // public async findOneUser() {
-  //   this.UserModel.findOne((err, doc) => {
-  //     if (err) {
-  //       throw new Error();
-  //     }
-  //     if (!doc) {
-  //       this.UserModel.create({
-  //         dob, (er) => {
-  //         if (er) {
-  //           throw new Error();
-  //         }
-  //       });
-  //     }
-  //   });
 }
 
 export default new UserRepository();

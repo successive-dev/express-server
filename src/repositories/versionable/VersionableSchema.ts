@@ -14,7 +14,7 @@ export default class VersionableSchema extends Schema {
             },
             deletedAt: {
                 Required: false,
-                type: Boolean,
+                type: Date,
             },
             originalId: {
                 Required: true,

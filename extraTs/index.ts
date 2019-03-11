@@ -16,4 +16,3 @@ validateUsers(users);
 print_triangle(10);
 print_diamond(10);
 console.log(hasPermission('getUsers','trainee','read'));
-
