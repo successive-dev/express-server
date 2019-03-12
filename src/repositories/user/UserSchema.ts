@@ -16,7 +16,7 @@ import { User } from "./UserModel";
 class UserSchema extends VersionableSchema {
     constructor() {
         const baseSchema = {
-            _id: { type: String },
+            _id: { type: String, required: true },
             emailid: { type: String, required: true },
             name: { type: String, required: true },
             password: { type: String, required: true },

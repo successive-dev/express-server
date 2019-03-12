@@ -13,9 +13,10 @@ export default class VersionableRepository {
             // tslint:disable-next-line: variable-name
             const _id = originalId;
             Object.assign(data, {_id, originalId });
+            console.log(data);
             return await this.model.create(data);
         } catch (ex) {
-            throw new Error("No document found");
+            throw new Error("No document found : VersionableRepo : create");
         }
     }
 

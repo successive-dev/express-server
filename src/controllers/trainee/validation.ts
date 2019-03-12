@@ -1,9 +1,9 @@
 const validate = {
     create: {
         id: {
-            required: true,
+            required: false,
             string: true,
-            in: ['body'],   
+            in: ['body'],
             errorMessage: 'Id is required',
             custom: function (value) {
                 console.log('Value', value);

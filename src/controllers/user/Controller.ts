@@ -1,5 +1,7 @@
+import { hash } from "bcrypt";
 import {NextFunction, Request, Response} from "express";
 import userRepo from "../../repositories/user/UserRepository";
+
 // import {User} from '../../../src/repositories/user/UserModel';
 
 // Filter out the required data from the request and play with it here only.
@@ -10,10 +12,10 @@ class UserClass {
         res.send(user);
     }
     public async post(req: Request, res: Response) {
-        const { name, emailid, password } = req.body;
-        const dob = new Date();
+        const { name, emailid } = req.body;
+        let { password } = req.body;
+        password = await hash(password, 10);
         const newUser = await userRepo.createUser({
-            dob,
             emailid,
             name,
             password,

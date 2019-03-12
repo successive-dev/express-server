@@ -1,17 +1,17 @@
 import * as express from "express";
-// import validationHandler from '../../../libs/routes/validationHandler';
 import authMiddleWare from "../../../libs/routes/authMiddleWare";
+import validationHandler from "../../../libs/routes/validationHandler";
+import validate from "../trainee/validation";
 import user from "./Controller";
 
 const router = express.Router();
-// console.log(validate.create);
 
-router.get("/", user.get);
+router.get("/" , validationHandler(validate.get), authMiddleWare("getUsers", "write"), user.get);
 
-router.post("/", user.post);
+router.post("/", validationHandler(validate.create), authMiddleWare("getUsers", "write"), user.post);
 
-router.put("/", user.put);
+router.put("/",  validationHandler(validate.update), authMiddleWare("getUsers", "write"), user.put);
 
-router.delete("/", user.delete);
+router.delete("/", validationHandler(validate.delete),  authMiddleWare("getUsers", "write"), user.delete);
 
 export default router;

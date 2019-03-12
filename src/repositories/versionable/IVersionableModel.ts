@@ -3,4 +3,5 @@ export default interface IVersionableModel extends Document {
   createdAt: Date;
   deletedAt: Date;
   originalId: string;
+  updatedAt: Date;
 }

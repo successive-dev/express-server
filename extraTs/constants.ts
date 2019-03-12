@@ -18,5 +18,4 @@ export const permissions = {
 export const seedUser = {
     emailid: "DummyEmailId",
     name: "DummyName",
-    password: "DummyPassword",
 };

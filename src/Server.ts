@@ -3,6 +3,7 @@ import * as express from "express";
 import Database from "../libs/Database";
 import seedUser from "../libs/seedData";
 import { IConfig } from "./config/IConfig";
+import auth from "./controllers/authentication/auth";
 import { traineeRouter } from "./controllers/trainee/index";
 import { userRouter } from "./controllers/user/index";
 const app = express();
@@ -24,6 +25,7 @@ export default class Server {
     }
 
     public setupRoutes() {
+        app.use("/api/auth", auth);
         app.use("/api/trainee", traineeRouter);
         app.use("/api/user", userRouter);
         app.get("/", (req, res) => {
