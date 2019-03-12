@@ -6,19 +6,39 @@ import userRepo from "../../repositories/user/UserRepository";
 
 // Filter out the required data from the request and play with it here only.
 class UserClass {
-    public async get(req: Request, res: Response) {
-// tslint:disable-next-line: no-shadowed-variable
-        const user = await userRepo.getUser(req.body.id);
+    public async getQueryStringParams() {
+        // implementation
+    }
+
+    public async getById(req: Request, res: Response) {
+        const id = req.params.id;
+        const user = await userRepo.getUser(id);
         res.send(user);
     }
+
+    public async get(req: Request, res: Response) {
+        let { limit, skip } = req.query;
+        limit = parseInt(limit, 10);
+        skip = parseInt(skip, 10);
+        let users = await userRepo.find();
+        if (limit + skip <= users.length) {
+            users = users.slice(skip, skip + limit);
+        } else {
+            throw new Error("Limit Skip err");
+        }
+        // delete users[skip];
+        res.send(users);
+    }
+
     public async post(req: Request, res: Response) {
-        const { name, emailid } = req.body;
+        const { name, emailid, role } = req.body;
         let { password } = req.body;
         password = await hash(password, 10);
         const newUser = await userRepo.createUser({
             emailid,
             name,
             password,
+            role,
         });
 
         if (!newUser) {
@@ -27,11 +47,13 @@ class UserClass {
         res.send(newUser);
 
     }
+
     public async put(req: Request, res: Response) {
         const { emailid, name, password } = req.body;
         const updatedUser = await userRepo.updateUser(req.body.id, {emailid, name, password});
         res.send(updatedUser);
     }
+
     public async delete(req: Request, res: Response) {
         const deletedUser = await userRepo.delUser(req.body.id);
         res.send(deletedUser);

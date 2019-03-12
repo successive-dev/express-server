@@ -34,7 +34,7 @@ const validate = {
         },
         limit: {
             required: false,
-            default: 10,
+            default: 2,
             number: true,
             in: ['query'],
             errorMessage: 'Limit is invalid',

@@ -1,11 +1,3 @@
-export const users = [{
-    reviewerEmail: "reviewer1@successive.tech",
-    traineeEmail: "trainee1@successive.tech",
-}, {
-    reviewerEmail: "reviewer1@successive.tech",
-    traineeEmail: "trainee1@successivetech",
-}];
-
 export const permissions = {
     getUsers: {
         all: ["head-trainer"],
@@ -18,4 +10,5 @@ export const permissions = {
 export const seedUser = {
     emailid: "DummyEmailId",
     name: "DummyName",
+    role: "trainee",
 };

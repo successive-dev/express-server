@@ -33,15 +33,24 @@ export default class Server {
         });
     }
 
-    public run() {
+    public async run() {
         try {
             const db = new Database();
-            db.open(process.env.MONGO_URL);
-            seedUser();
-            app.listen(this.config.port, () => {
-                // tslint:disable-next-line: no-console
-                console.log(`Example app listening on port ${this.config.port}!`);
-            });
+            const conn = await db.open(process.env.MONGO_URL);
+            if (conn) {
+                app.listen(this.config.port, (err) => {
+                    // tslint:disable-next-line: no-console
+                    if (err) {
+// tslint:disable-next-line: no-console
+                        console.log("err", err);
+                    } else {
+// tslint:disable-next-line: no-console
+                        console.log(`Example app listening on port ${this.config.port}!`);
+                        seedUser();
+                    }
+                });
+            }
+
         } catch (err) {
             throw new Error(err);
         }

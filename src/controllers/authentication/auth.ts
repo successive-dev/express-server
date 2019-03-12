@@ -12,6 +12,7 @@ router.post("/", async (req, res) => {
         const token = sign({
             emailid: user.emailid,
             password: user.password,
+            role: user.role,
         }, process.env.SECRET, { expiresIn: "0.25h" });
         res.header("Authorization", token).send(token);
     }

@@ -28,6 +28,10 @@ class UserRepository extends VersionableRepository {
     return await User.findOne();
   }
 
+  public async find() {
+    return await User.find();
+  }
+
   public async findUserByEmail(email) {
     return await User.findOne({emailid: email, deletedAt: {$exists: false}});
   }
