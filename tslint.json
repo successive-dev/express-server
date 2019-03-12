@@ -1,0 +1,12 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        // tslint:disable-next-line: no-string-literal
+
+    },
+    "rulesDirectory": []
+}
