@@ -1,14 +1,14 @@
 export const permissions = {
     getUsers: {
-        all: ["head-trainer"],
+        all: ['head-trainer'],
         delete: [],
-        read: ["trainee", "trainer"],
-        write: ["trainer"],
+        read: ['trainee', 'trainer'],
+        write: ['trainer'],
     },
 };
 
-export const seedUser = {
-    emailid: "DummyEmailId",
-    name: "DummyName",
-    role: "trainee",
+export const seedUserData = {
+    emailid: 'DummyEmailId',
+    name: 'DummyName',
+    role: 'head-trainer',
 };

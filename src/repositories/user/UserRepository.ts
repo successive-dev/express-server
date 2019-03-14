@@ -1,7 +1,5 @@
-import { hash } from "bcrypt";
-import { seedUser } from "../../../extraTs/constants";
-import VersionableRepository from "../versionable/VersionableRepository";
-import { User } from "./UserModel";
+import VersionableRepository from '../versionable/VersionableRepository';
+import { User } from './UserModel';
 
 class UserRepository extends VersionableRepository {
   constructor() {
@@ -12,40 +10,25 @@ class UserRepository extends VersionableRepository {
     return await super.create(data);
   }
 
-  public async getUser(id) {
-    return await super.read(id);
+  public async readOneUser(id) {
+    return await super.readOne(id);
   }
 
-  public async delUser(id) {
-    return await super.del(id);
+  public async readUsers() {
+    return await super.read();
   }
 
-  public async updateUser(id, newdata) {
-    return await super.update(id, newdata);
+  public async deleteUser(id) {
+    return await super.delete(id);
   }
 
-  public async findOneUser() {
-    return await User.findOne();
+  public async updateUser(id, dataToUpdate) {
+    return await super.update(id, dataToUpdate);
   }
 
-  public async find() {
-    return await User.find();
+  public async findByQueryUsers(data) {
+    return await super.findByQuery(data);
   }
-
-  public async findUserByEmail(email) {
-    return await User.findOne({emailid: email, deletedAt: {$exists: false}});
-  }
-
-  public async insertSeedUser() {
-    let hsh = "";
-    try {
-      hsh = await hash(process.env.PASSWORD, 10);
-    } catch (ex) {
-      throw new Error("Could'nt gen hash");
-    }
-    return await super.create(Object.assign({}, seedUser, {password: hsh}));
-  }
-
 }
 
 export default new UserRepository();

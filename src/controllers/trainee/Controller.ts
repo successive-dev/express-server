@@ -1,18 +1,18 @@
-import {NextFunction, Request, Response} from "express";
+import { NextFunction, Request, Response } from 'express';
 
 class Trainee {
     public get(req: Request, res: Response) {
-        res.send("Get pinged");
+        res.send('Get pinged');
         // console.log(req.query);
     }
     public post(req: Request, res: Response) {
-        res.send("Post pinged");
+        res.send('Post pinged');
     }
     public put(req: Request, res: Response) {
-        res.send("Put pinged");
+        res.send('Put pinged');
     }
     public delete(req: Request, res: Response) {
-        res.send("Delete pinged");
+        res.send('Delete pinged');
     }
 }
 

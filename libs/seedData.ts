@@ -1,12 +1,16 @@
-// only the model of user is needed to store data into db
-
-// import IUser from '../src/repositories/user/IUserModel';
-// import { User } from '../src/repositories/user/UserModel';
-import UserRepo from "../src/repositories/user/UserRepository";
+import { hash } from 'bcrypt';
+import { seedUserData } from '../extraTs/constants';
+import UserRepo from '../src/repositories/user/UserRepository';
 
 export default async function seedUser() {
-  const user = await UserRepo.findOneUser();
-  if (!user) {
-    UserRepo.insertSeedUser();
+  const user = await UserRepo.readUsers();
+  if (user.length === 0) {
+    let hashPassword: string;
+    try {
+      hashPassword = await hash(process.env.PASSWORD, 10);
+    } catch (ex) {
+      throw new Error("Couldn't gen hash");
+    }
+    return await UserRepo.createUser(Object.assign({}, seedUserData, { password: hashPassword }));
   }
 }

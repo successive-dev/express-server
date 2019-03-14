@@ -1,6 +1,6 @@
-import { Schema } from "mongoose";
-import VersionableSchema from "../versionable/VersionableSchema";
-import { User } from "./UserModel";
+import { Schema } from 'mongoose';
+import VersionableSchema from '../versionable/VersionableSchema';
+import { User } from './UserModel';
 
 // const UserSchema = new Schema({
 

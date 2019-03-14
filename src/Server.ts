@@ -1,11 +1,13 @@
-import * as bodyParser from "body-parser";
-import * as express from "express";
-import Database from "../libs/Database";
-import seedUser from "../libs/seedData";
-import { IConfig } from "./config/IConfig";
-import auth from "./controllers/authentication/auth";
-import { traineeRouter } from "./controllers/trainee/index";
-import { userRouter } from "./controllers/user/index";
+import * as bodyParser from 'body-parser';
+import * as express from 'express';
+import Database from '../libs/Database';
+import errorHandler from '../libs/routes/errorHandler';
+import notFoundRoute from '../libs/routes/notFoundRoute';
+import seedUser from '../libs/seedData';
+import { IConfig } from './config/IConfig';
+import auth from './controllers/authentication/auth';
+import { traineeRouter } from './controllers/trainee/index';
+import { userRouter } from './controllers/user/index';
 const app = express();
 
 export default class Server {
@@ -17,6 +19,7 @@ export default class Server {
         this.initBodyParser();
         this.setupRoutes();
         this.run();
+        return this;
     }
 
     public initBodyParser() {
@@ -25,12 +28,14 @@ export default class Server {
     }
 
     public setupRoutes() {
-        app.use("/api/auth", auth);
-        app.use("/api/trainee", traineeRouter);
-        app.use("/api/user", userRouter);
-        app.get("/", (req, res) => {
-            res.send("I am root");
+        app.get('/', (req, res) => {
+            res.send('I am root');
         });
+        app.use('/api/trainee', traineeRouter);
+        app.use('/api/user', userRouter);
+        app.use('/api/auth', auth);
+        app.use(notFoundRoute);
+        app.use(errorHandler);
     }
 
     public async run() {
@@ -41,10 +46,10 @@ export default class Server {
                 app.listen(this.config.port, (err) => {
                     // tslint:disable-next-line: no-console
                     if (err) {
-// tslint:disable-next-line: no-console
-                        console.log("err", err);
+                        // tslint:disable-next-line: no-console
+                        console.log('err', err);
                     } else {
-// tslint:disable-next-line: no-console
+                        // tslint:disable-next-line: no-console
                         console.log(`Example app listening on port ${this.config.port}!`);
                         seedUser();
                     }

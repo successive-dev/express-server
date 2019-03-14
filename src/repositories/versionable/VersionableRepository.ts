@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import { Types } from 'mongoose';
 
 export default class VersionableRepository {
     private model;
@@ -10,50 +10,65 @@ export default class VersionableRepository {
     public async create(data) {
         try {
             const originalId = this.genObjectId();
-            // tslint:disable-next-line: variable-name
-            const _id = originalId;
-            Object.assign(data, {_id, originalId });
-            console.log(data);
+            const id = originalId;
+            Object.assign(data, { _id: id, originalId });
             return await this.model.create(data);
         } catch (ex) {
-            throw new Error("No document found : VersionableRepo : create");
+            throw new Error('Cant create document');
         }
     }
 
-    public async read(oid) {
+    public async readOne(originalId) {
         try {
-            return await this.model.find({originalId: oid, deletedAt: {$exists: false}});
+            return await this.model.findOne({ originalId, deletedAt: { $exists: false } });
         } catch (ex) {
-            throw new Error("No document found");
+            throw new Error('No document found');
         }
+    }
 
+    public async read() {
+        try {
+            return await this.model.find({ deletedAt: { $exists: false } });
+        } catch (ex) {
+            throw new Error('No document found');
+        }
     }
 
     public genObjectId() {
         return Types.ObjectId();
     }
 
-    public async updateDeletedAt(oid) {
+    public async updateDeletedAt(originalId) {
         try {
-            await this.model.updateOne({originalId: oid, deletedAt: {$exists: false}}, {$set: {deletedAt: new Date()}});
-        } catch (ex) {
-            throw new Error("Can't deleted the document");
+            // tslint:disable-next-line: max-line-length
+            return await this.model.updateOne({ originalId, deletedAt: { $exists: false } }, { $set: { deletedAt: new Date() } });
+        } catch (err) {
+            throw new Error("Can't delete the document");
         }
     }
 
-    public async update(oid, newData) {
-        this.updateDeletedAt(oid);
-        let doc = await this.read(oid);
-        doc._id = this.genObjectId();
-        doc.updatedAt = new Date();
-        doc.originalId = oid;
-        doc = Object.assign({}, newData, doc);
-
-        return await this.model.create(doc);
+    public async update(originalId, dataToUpdate) {
+        try {
+            let doc = await this.readOne(originalId);
+            doc = doc.toObject();
+            doc = Object.assign(doc, dataToUpdate, { _id: this.genObjectId(), updatedAt: new Date() });
+            await this.updateDeletedAt(originalId);
+            return await this.model.create(doc);
+        } catch (err) {
+            throw new Error('Unable to properly update document');
+        }
     }
 
-    public async del(id) {
+    public async delete(id) {
         return this.updateDeletedAt(id);
+    }
+
+    public async findByQuery(data) {
+        try {
+            return await this.model.find(Object.assign(data, { deletedAt: { $exists: false } }));
+        } catch (err) {
+            throw new Error('Unable to find document by query');
+        }
     }
 
 }

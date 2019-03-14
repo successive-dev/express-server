@@ -1,5 +1,5 @@
-import * as dotenv from "dotenv";
-import Server from "./Server";
+import * as dotenv from 'dotenv';
+import Server from './Server';
 dotenv.config();
 
 const conf = Object.freeze({
@@ -7,5 +7,6 @@ const conf = Object.freeze({
     port: process.env.PORT,
 });
 
-const s = new Server(conf);
-s.bootstarp();
+const server = new Server(conf);
+
+server.bootstarp();

@@ -1,4 +1,4 @@
-import { Schema, version } from "mongoose";
+import { Schema, version } from 'mongoose';
 
 // export const VersionableSchema = new Schema({
 //     // versioanble Schema
