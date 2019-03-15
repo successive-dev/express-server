@@ -60,6 +60,7 @@ export default class VersionableRepository {
         _id: this.genObjectId(),
         updatedAt: new Date(),
       });
+
       await this.updateDeletedAt(originalId);
       return await this.model.create(doc);
     } catch (err) {
@@ -73,9 +74,10 @@ export default class VersionableRepository {
 
   public async findByQuery(data) {
     try {
-      return await this.model.find(
-        Object.assign(data, { deletedAt: { $exists: false } }),
-      );
+      const { limit, skip } = data;
+      delete data.limit;
+      delete data.skip;
+      return await this.model.find(data, undefined, { limit, skip });
     } catch (err) {
       throw new Error('Unable to find document by query');
     }

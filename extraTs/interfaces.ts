@@ -1,4 +1,4 @@
 export default interface IUser {
-    traineeEmail: string;
-    reviewerEmail: string;
+  traineeEmail: string;
+  reviewerEmail: string;
 }

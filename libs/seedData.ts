@@ -9,8 +9,10 @@ export default async function seedUser() {
     try {
       hashPassword = await hash(process.env.PASSWORD, 10);
     } catch (ex) {
-      throw new Error("Couldn't gen hash");
+      throw new Error("Couldn't generate hash");
     }
-    return await UserRepo.createUser(Object.assign({}, seedUserData, { password: hashPassword }));
+    return await UserRepo.createUser(
+      Object.assign({}, seedUserData, { password: hashPassword }),
+    );
   }
 }
