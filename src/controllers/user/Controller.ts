@@ -35,11 +35,11 @@ class UserClass {
 
     public async post(req: Request, res: Response, next: NextFunction) {
         try {
-            const { name, emailid, role } = req.body;
+            const { name, emailId, role } = req.body;
             let { password } = req.body;
             password = await hash(password, 10);
             const newUser = await userRepo.createUser({
-                emailid,
+                emailId,
                 name,
                 password,
                 role,

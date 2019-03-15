@@ -1,4 +1,4 @@
-import VersionableRepository from '../versionable/VersionableRepository';
+import { VersionableRepository } from '../versionable';
 import { User } from './UserModel';
 
 class UserRepository extends VersionableRepository {

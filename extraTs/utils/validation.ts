@@ -1,6 +1,7 @@
-import { User } from '../interfaces';
+import IUser from '../interfaces';
 import validateEmail from './helper';
-export default function validateUsers(users: User[]) {
+
+export default function validateUsers(users: IUser[]) {
     let validCount = 0;
     for (const user of users) {
         const { traineeEmail, reviewerEmail } = user;

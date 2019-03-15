@@ -1,6 +1,5 @@
 import * as express from 'express';
-import authMiddleWare from '../../../libs/routes/authMiddleWare';
-import validationHandler from '../../../libs/routes/validationHandler';
+import { authMiddleWare, validationHandler } from '../../../libs/';
 import trainee from './Controller';
 import validate from './validation';
 

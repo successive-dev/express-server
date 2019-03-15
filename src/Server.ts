@@ -1,13 +1,8 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
-import Database from '../libs/Database';
-import errorHandler from '../libs/routes/errorHandler';
-import notFoundRoute from '../libs/routes/notFoundRoute';
-import seedUser from '../libs/seedData';
-import { IConfig } from './config/IConfig';
-import auth from './controllers/authentication/auth';
-import { traineeRouter } from './controllers/trainee/index';
-import { userRouter } from './controllers/user/index';
+import { Database, errorHandler, notFoundRoute, seedUser } from '../libs';
+import { IConfig } from './config';
+import { auth, traineeRouter, userRouter } from './controllers';
 const app = express();
 
 export default class Server {
@@ -15,10 +10,9 @@ export default class Server {
     constructor(public config: IConfig) {
     }
 
-    public bootstarp() {
+    public bootstrap() {
         this.initBodyParser();
         this.setupRoutes();
-        this.run();
         return this;
     }
 
@@ -28,7 +22,7 @@ export default class Server {
     }
 
     public setupRoutes() {
-        app.get('/', (req, res) => {
+        app.get('/', (_, res) => {
             res.send('I am root');
         });
         app.use('/api/trainee', traineeRouter);

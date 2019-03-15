@@ -1,9 +1,5 @@
 import { Schema, version } from 'mongoose';
 
-// export const VersionableSchema = new Schema({
-//     // versioanble Schema
-// });
-
 export default class VersionableSchema extends Schema {
     constructor(userSchema) {
         const VersionSchema = Object.assign({

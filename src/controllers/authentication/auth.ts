@@ -1,16 +1,16 @@
 import { compare } from 'bcrypt';
 import * as express from 'express';
 import { sign } from 'jsonwebtoken';
-import UserRepo from '../../repositories/user/UserRepository';
+import { UserRepo } from '../../repositories';
 
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-    const { emailid, password } = req.body;
-    const user = await UserRepo.findByQueryUsers({emailid});
+    const { emailId, password } = req.body;
+    const user = await UserRepo.findByQueryUsers({emailId});
     if (await compare(password, user[0].password)) {
         const token = sign({
-            emailid: user[0].emailid,
+            emailId: user[0].emailId,
             password: user[0].password,
             role: user[0].role,
         }, process.env.SECRET, { expiresIn: '12h' });

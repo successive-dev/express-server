@@ -8,7 +8,7 @@ export const permissions = {
 };
 
 export const seedUserData = {
-    emailid: 'DummyEmailId',
+    emailId: 'DummyEmailId',
     name: 'DummyName',
     role: 'head-trainer',
 };

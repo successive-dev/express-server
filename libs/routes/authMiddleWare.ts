@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import hasPermission from '../../extraTs/utils/permissions';
+import { hasPermission } from '../../extraTs';
 import { User } from '../../src/repositories/user/UserModel';
 
 export default (mod, permission) => {
