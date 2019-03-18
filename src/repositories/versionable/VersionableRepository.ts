@@ -1,4 +1,5 @@
 import { Types } from 'mongoose';
+import { IUserModel } from '../user';
 
 export default class VersionableRepository {
   private model;
@@ -14,7 +15,7 @@ export default class VersionableRepository {
       Object.assign(data, { _id: id, originalId });
       return await this.model.create(data);
     } catch (ex) {
-      throw new Error('Cant create document');
+      throw new Error("Can't create document");
     }
   }
 
@@ -48,21 +49,27 @@ export default class VersionableRepository {
         { $set: { deletedAt: new Date() } },
       );
     } catch (err) {
-      throw new Error('Cant delete the document');
+      throw new Error("Can't delete the document");
     }
   }
 
   public async update(originalId, dataToUpdate) {
     try {
-      let doc = await this.readOne(originalId);
-      doc = doc.toObject();
-      doc = Object.assign(doc, dataToUpdate, {
-        _id: this.genObjectId(),
-        updatedAt: new Date(),
-      });
+      const doc = await this.readOne(originalId);
+      const previousDoc: IUserModel = doc.toObject();
+      delete previousDoc._id;
+      delete previousDoc.createdAt;
 
+      // Replicating the updated data into previous data
+      const newDoc = Object.assign(previousDoc, dataToUpdate);
+
+      // Invalidating the previous data/document
       await this.updateDeletedAt(originalId);
-      return await this.model.create(doc);
+
+      newDoc.createdAt = new Date();
+      newDoc._id = this.genObjectId();
+
+      return await this.model.create(newDoc);
     } catch (err) {
       throw new Error('Unable to properly update document');
     }

@@ -21,7 +21,7 @@ class UserClass {
         limit,
         skip,
       };
-      const users = await userRepo.findByQueryUsers(query);
+      const users = await userRepo.findUsersByQuery(query);
       users.totalUsers = users.length;
       console.log(users.totalUsers);
       res.send(users);

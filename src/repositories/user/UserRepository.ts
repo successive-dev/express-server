@@ -26,7 +26,7 @@ class UserRepository extends VersionableRepository {
     return await super.update(id, dataToUpdate);
   }
 
-  public async findByQueryUsers(data) {
+  public async findUsersByQuery(data) {
     data.deletedAt = undefined;
     return await super.findByQuery(data);
   }
