@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
   const { emailId, password } = req.body;
-  const user = await UserRepo.findByQueryUsers({ emailId });
+  const user = await UserRepo.findUsersByQuery({ emailId });
   if (await compare(password, user[0].password)) {
     const token = sign(
       {

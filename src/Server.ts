@@ -5,7 +5,7 @@ import { IConfig } from './config';
 import { auth, traineeRouter, userRouter } from './controllers';
 
 export default class Server {
-  private app: express.Express;
+  public app: express.Express;
 
   constructor(private config: IConfig) {
     this.app = express();
@@ -24,7 +24,7 @@ export default class Server {
 
   public setupRoutes() {
     this.app.get('/', (_, res) => {
-      res.send('I am root');
+      res.send({value: 'I am root'});
     });
     this.app.use('/api/trainee', traineeRouter);
     this.app.use('/api/user', userRouter);

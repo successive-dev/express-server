@@ -62,6 +62,18 @@ const validationHandler = (config) => (req, res, next) => {
         });
       }
     }
+
+    if (items && items.regex) {
+      const regexp = new RegExp(items.regex);
+      // returns true if id is hexadecimal chars
+      if (!regexp.test(validatedValues[0])) {
+        return next({
+          error: 'Bad Request',
+          message: `${key} invalid format`,
+          status: 400,
+        });
+      }
+    }
   });
 
   next();

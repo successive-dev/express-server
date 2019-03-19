@@ -22,7 +22,7 @@ export default (mod, permission) => {
       });
     }
 
-    const result = await UserRepo.findByQueryUsers({ emailId: user.emailId });
+    const result = await UserRepo.findUsersByQuery({ emailId: user.emailId });
     if (!result) {
       return next({
         error: 'Access denied',

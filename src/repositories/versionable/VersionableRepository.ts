@@ -68,7 +68,6 @@ export default class VersionableRepository {
 
       newDoc.createdAt = new Date();
       newDoc._id = this.genObjectId();
-
       return await this.model.create(newDoc);
     } catch (err) {
       throw new Error('Unable to properly update document');

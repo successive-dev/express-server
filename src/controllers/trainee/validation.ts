@@ -1,19 +1,16 @@
 const validate = {
   create: {
     name: {
-      errorMessage: 'Name is required',
       in: ['body'],
-      regex: '',
+      regex: '^[A-Za-z]+$',
       required: true,
     },
     password: {
-      errorMessage: 'password is required',
       in: ['body'],
       regex: '',
       required: true,
     },
     role: {
-      errorMessage: 'password is required',
       in: ['body'],
       regex: '',
       required: true,
@@ -22,23 +19,27 @@ const validate = {
 
   delete: {
     id: {
-      errorMessage: 'Id is required',
       in: ['params'],
+      regex: '^[0-9a-fA-F]{24}$',
       required: true,
+    },
+  },
+  getById: {
+    id: {
+      in: ['params'],
+      regex: '^[0-9a-fA-F]{24}$',
+      required: true,
+      string: true,
     },
   },
 
   get: {
     limit: {
-      // default: 0,
-      errorMessage: 'Limit is invalid',
       in: ['query'],
       number: true,
       required: false,
     },
     skip: {
-      // default: 0,
-      errorMessage: 'Skip is invalid',
       in: ['query'],
       number: true,
       required: false,
@@ -53,6 +54,7 @@ const validate = {
     },
     id: {
       in: ['body'],
+      regex: '^[0-9a-fA-F]{24}$',
       required: true,
       string: true,
     },

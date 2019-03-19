@@ -8,7 +8,7 @@ const router = express.Router();
 router
   .get(
     '/:id',
-    validationHandler(validate.get),
+    validationHandler(validate.getById),
     authMiddleWare('getUsers', 'read'),
     user.getById,
   )
