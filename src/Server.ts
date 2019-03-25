@@ -1,6 +1,6 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
-import { Database, errorHandler, notFoundRoute, seedUser } from '../libs';
+import { Database, errorHandler, notFoundRoute, seedUsers } from '../libs';
 import { IConfig } from './config';
 import { auth, traineeRouter, userRouter } from './controllers';
 
@@ -38,12 +38,12 @@ export default class Server {
       const db = new Database();
       const conn = await db.open(this.config.mongo_url);
       if (conn) {
-        this.app.listen(this.config.port, (err) => {
+        this.app.listen(this.config.port, async (err) => {
           if (err) {
             console.log('err', err);
           } else {
             console.log(`Example app listening on port ${this.config.port}!`);
-            seedUser();
+            await seedUsers();
           }
         });
       }

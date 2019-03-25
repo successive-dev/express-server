@@ -2,12 +2,12 @@ const validate = {
   create: {
     name: {
       in: ['body'],
-      regex: '^[A-Za-z]+$',
+      regex: '^[A-Za-z\\s]+$',
       required: true,
     },
     password: {
       in: ['body'],
-      regex: '',
+      regex: '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$',
       required: true,
     },
     role: {

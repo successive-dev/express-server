@@ -4,4 +4,7 @@ export default interface IConfig {
   mongo_url: string;
   secret: string;
   password: string;
+  password1: string;
+  password2: string;
+
 }

@@ -9,6 +9,8 @@ const configuration: IConfig = Object.freeze({
   mongo_url: envVars.MONGO_URL,
   node_env: envVars.NODE_ENV,
   password: envVars.PASSWORD,
+  password1: envVars.PASSWORD1,
+  password2: envVars.PASSWORD2,
   port: envVars.PORT,
   secret: envVars.SECRET,
 });

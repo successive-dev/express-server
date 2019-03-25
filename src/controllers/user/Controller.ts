@@ -23,7 +23,6 @@ class UserClass {
       };
       const users = await userRepo.findUsersByQuery(query);
       users.totalUsers = users.length;
-      console.log(users.totalUsers);
       res.send(users);
     } catch (error) {
       return next({ error: error.message, status: 400 });
