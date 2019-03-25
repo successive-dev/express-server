@@ -1,5 +1,11 @@
 const validate = {
   create: {
+    emailId: {
+      in: ['body'],
+// tslint:disable-next-line: max-line-length
+      regex: '^([A-Za-z0-9 \-\.])+\@(successive.tech)',
+      required: true,
+    },
     name: {
       in: ['body'],
       regex: '^[A-Za-z\\s]+$',
