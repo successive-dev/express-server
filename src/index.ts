@@ -1,11 +1,6 @@
-import * as dotenv from "dotenv";
-import Server from "./Server";
-dotenv.config();
+import { configuration } from './config';
+import Server from './Server';
 
-const conf = Object.freeze({
-    node_env: process.env.NODE_ENV,
-    port: process.env.PORT,
-});
+const server: Server = new Server(configuration);
 
-const s = new Server(conf);
-s.bootstarp();
+server.bootstrap().run();

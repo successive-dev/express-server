@@ -1,47 +1,54 @@
-import * as bodyParser from "body-parser";
-import * as express from "express";
-import Database from "../libs/Database";
-import seedUser from "../libs/seedData";
-import { IConfig } from "./config/IConfig";
-import { traineeRouter } from "./controllers/trainee/index";
-import { userRouter } from "./controllers/user/index";
-const app = express();
+import * as bodyParser from 'body-parser';
+import * as express from 'express';
+import { Database, errorHandler, notFoundRoute, seedUser } from '../libs';
+import { IConfig } from './config';
+import { auth, traineeRouter, userRouter } from './controllers';
 
 export default class Server {
+  private app: express.Express;
 
-    constructor(public config: IConfig) {
-    }
+  constructor(private config: IConfig) {
+    this.app = express();
+  }
 
-    public bootstarp() {
-        this.initBodyParser();
-        this.setupRoutes();
-        this.run();
-    }
+  public bootstrap() {
+    this.initBodyParser();
+    this.setupRoutes();
+    return this;
+  }
 
-    public initBodyParser() {
-        app.use(bodyParser.urlencoded({ extended: false }));
-        app.use(bodyParser.json());
-    }
+  public initBodyParser() {
+    this.app.use(bodyParser.urlencoded({ extended: false }));
+    this.app.use(bodyParser.json());
+  }
 
-    public setupRoutes() {
-        app.use("/api/trainee", traineeRouter);
-        app.use("/api/user", userRouter);
-        app.get("/", (req, res) => {
-            res.send("I am root");
-        });
-    }
+  public setupRoutes() {
+    this.app.get('/', (_, res) => {
+      res.send('I am root');
+    });
+    this.app.use('/api/trainee', traineeRouter);
+    this.app.use('/api/user', userRouter);
+    this.app.use('/api/auth', auth);
+    this.app.use(notFoundRoute);
+    this.app.use(errorHandler);
+  }
 
-    public run() {
-        try {
-            const db = new Database();
-            db.open(process.env.MONGO_URL);
+  public async run() {
+    try {
+      const db = new Database();
+      const conn = await db.open(this.config.mongo_url);
+      if (conn) {
+        this.app.listen(this.config.port, (err) => {
+          if (err) {
+            console.log('err', err);
+          } else {
+            console.log(`Example app listening on port ${this.config.port}!`);
             seedUser();
-            app.listen(this.config.port, () => {
-                // tslint:disable-next-line: no-console
-                console.log(`Example app listening on port ${this.config.port}!`);
-            });
-        } catch (err) {
-            throw new Error(err);
-        }
+          }
+        });
+      }
+    } catch (err) {
+      throw new Error(err.message);
     }
+  }
 }

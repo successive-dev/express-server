@@ -1,4 +1,4 @@
-export interface User{
-    traineeEmail:string;
-    reviewerEmail:string;
+export default interface IUser {
+  traineeEmail: string;
+  reviewerEmail: string;
 }

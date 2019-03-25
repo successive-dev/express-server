@@ -1,39 +1,71 @@
-import {NextFunction, Request, Response} from "express";
-import userRepo from "../../repositories/user/UserRepository";
-// import {User} from '../../../src/repositories/user/UserModel';
+import { hash } from 'bcrypt';
+import { NextFunction, Request, Response } from 'express';
+import userRepo from '../../repositories/user/UserRepository';
 
-// Filter out the required data from the request and play with it here only.
 class UserClass {
-    public async get(req: Request, res: Response) {
-// tslint:disable-next-line: no-shadowed-variable
-        const user = await userRepo.getUser(req.body.id);
-        res.send(user);
+  public async getById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = req.params.id;
+      // tslint:disable-next-line: no-shadowed-variable
+      const user = await userRepo.readOneUser(id);
+      res.send(user);
+    } catch (err) {
+      return next({ error: 'Bad Request', status: 400 });
     }
-    public async post(req: Request, res: Response) {
-        const { name, emailid, password } = req.body;
-        const dob = new Date();
-        const newUser = await userRepo.createUser({
-            dob,
-            emailid,
-            name,
-            password,
-        });
+  }
 
-        if (!newUser) {
-            throw new Error("Failed to create new User");
-        }
-        res.send(newUser);
+  public async get(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { limit, skip } = req.query;
+      const query = {
+        limit,
+        skip,
+      };
+      const users = await userRepo.findByQueryUsers(query);
+      users.totalUsers = users.length;
+      console.log(users.totalUsers);
+      res.send(users);
+    } catch (error) {
+      return next({ error: error.message, status: 400 });
+    }
+  }
 
+  public async post(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { name, emailId, role } = req.body;
+      let { password } = req.body;
+      password = await hash(password, 10);
+      const newUser = await userRepo.createUser({
+        emailId,
+        name,
+        password,
+        role,
+      });
+      res.send(newUser);
+    } catch (error) {
+      return next({ error: error.message, status: 400 });
     }
-    public async put(req: Request, res: Response) {
-        const { emailid, name, password } = req.body;
-        const updatedUser = await userRepo.updateUser(req.body.id, {emailid, name, password});
-        res.send(updatedUser);
+  }
+
+  public async put(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id, dataToUpdate } = req.body;
+      const updatedUser = await userRepo.updateUser(id, dataToUpdate);
+      res.send(updatedUser);
+    } catch (error) {
+      return next({ error: error.message, status: 400 });
     }
-    public async delete(req: Request, res: Response) {
-        const deletedUser = await userRepo.delUser(req.body.id);
-        res.send(deletedUser);
+  }
+
+  public async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const deletedUser = await userRepo.deleteUser(id);
+      res.send(deletedUser);
+    } catch (error) {
+      return next({ error: error.message, status: 400 });
     }
+  }
 }
 
 const user = new UserClass();

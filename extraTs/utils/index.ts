@@ -1,3 +1,3 @@
-import hasPermission from './permissions';
-import validateUsers from './validation';
-export {hasPermission, validateUsers};
+export { default as validateEmail } from './helper';
+export { default as validateUsers } from './validation';
+export { default as hasPermission } from './permissions';

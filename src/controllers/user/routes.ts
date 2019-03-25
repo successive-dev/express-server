@@ -1,17 +1,40 @@
-import * as express from "express";
-// import validationHandler from '../../../libs/routes/validationHandler';
-import authMiddleWare from "../../../libs/routes/authMiddleWare";
-import user from "./Controller";
+import * as express from 'express';
+import { authMiddleWare, validationHandler } from '../../../libs/';
+import { validate } from '../trainee/';
+import user from './Controller';
 
 const router = express.Router();
-// console.log(validate.create);
 
-router.get("/", user.get);
-
-router.post("/", user.post);
-
-router.put("/", user.put);
-
-router.delete("/", user.delete);
+router
+  .get(
+    '/:id',
+    validationHandler(validate.get),
+    authMiddleWare('getUsers', 'read'),
+    user.getById,
+  )
+  .get(
+    '/',
+    validationHandler(validate.get),
+    authMiddleWare('getUsers', 'read'),
+    user.get,
+  )
+  .post(
+    '/',
+    validationHandler(validate.create),
+    authMiddleWare('getUsers', 'write'),
+    user.post,
+  )
+  .put(
+    '/',
+    validationHandler(validate.update),
+    authMiddleWare('getUsers', 'write'),
+    user.put,
+  )
+  .delete(
+    '/:id',
+    validationHandler(validate.delete),
+    authMiddleWare('getUsers', 'delete'),
+    user.delete,
+  );
 
 export default router;
